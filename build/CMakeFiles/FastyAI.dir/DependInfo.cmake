@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/furkansevinc/Desktop/Fasty AI Project/src/NotificationSystem.cpp" "CMakeFiles/FastyAI.dir/src/NotificationSystem.cpp.o" "gcc" "CMakeFiles/FastyAI.dir/src/NotificationSystem.cpp.o.d"
   "/Users/furkansevinc/Desktop/Fasty AI Project/src/TrackingSystem.cpp" "CMakeFiles/FastyAI.dir/src/TrackingSystem.cpp.o" "gcc" "CMakeFiles/FastyAI.dir/src/TrackingSystem.cpp.o.d"
   "/Users/furkansevinc/Desktop/Fasty AI Project/src/VideoUtils.cpp" "CMakeFiles/FastyAI.dir/src/VideoUtils.cpp.o" "gcc" "CMakeFiles/FastyAI.dir/src/VideoUtils.cpp.o.d"
+  "/Users/furkansevinc/Desktop/Fasty AI Project/src/WaterLevelDetector.cpp" "CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.o" "gcc" "CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.o.d"
   "/Users/furkansevinc/Desktop/Fasty AI Project/src/main.cpp" "CMakeFiles/FastyAI.dir/src/main.cpp.o" "gcc" "CMakeFiles/FastyAI.dir/src/main.cpp.o.d"
   )
 

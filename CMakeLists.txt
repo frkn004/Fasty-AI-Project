@@ -24,6 +24,7 @@ set(SOURCES
     src/MenuSystem.cpp
     src/VideoUtils.cpp
     src/Detection.cpp
+    src/WaterLevelDetector.cpp
 )
 
 # Header dosyaları
@@ -34,6 +35,7 @@ set(HEADERS
     include/NotificationSystem.hpp
     include/MenuSystem.hpp
     include/VideoUtils.hpp
+    include/WaterLevelDetector.hpp
 )
 
 # Include dizinleri

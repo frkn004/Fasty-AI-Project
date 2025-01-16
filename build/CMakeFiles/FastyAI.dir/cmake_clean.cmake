@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/FastyAI.dir/src/TrackingSystem.cpp.o.d"
   "CMakeFiles/FastyAI.dir/src/VideoUtils.cpp.o"
   "CMakeFiles/FastyAI.dir/src/VideoUtils.cpp.o.d"
+  "CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.o"
+  "CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.o.d"
   "CMakeFiles/FastyAI.dir/src/main.cpp.o"
   "CMakeFiles/FastyAI.dir/src/main.cpp.o.d"
   "FastyAI"

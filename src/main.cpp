@@ -1,6 +1,7 @@
 #include "FastyDetector.hpp"
 #include "VideoUtils.hpp"
 #include "MenuSystem.hpp"
+#include "WaterLevelDetector.hpp"
 #include <iostream>
 #include <string>
 #include <limits>
@@ -25,6 +26,7 @@ struct AppSettings {
     int frameWidth = 1280;            // Görüntü genişliği
     int frameHeight = 720;            // Görüntü yüksekliği
     float playbackSpeed = 1.0f;        // Oynatma hızı
+    bool enableWaterTracking = true;   // Su takibi aktif
 };
 
 // Başlangıç ekranı
@@ -33,7 +35,7 @@ void showSplashScreen() {
               << "********************************\n"
               << "*                              *\n"
               << "*        FASTY AI v1.0         *\n"
-              << "*   Nesne Tespit Sistemi       *\n"
+              << "*   Su Üstü Nesne Tespiti     *\n"
               << "*                              *\n"
               << "********************************\n"
               << "\nYükleniyor...\n\n";
@@ -114,38 +116,6 @@ FastyDetector::InputSettings getInitialSettings() {
             settings.height = 720;
     }
     
-    clearScreen();
-    std::cout << "\n=== TESPIT AYARLARI ===\n\n";
-    
-    // Tespit modu
-    std::cout << "Tespit Modu:\n"
-              << "[1] Normal Mod\n"
-              << "[2] Gelişmiş Mod (Daha yavaş ama daha hassas)\n"
-              << "Seçiminiz: ";
-              
-    std::cin >> choice;
-    settings.enhancedMode = (choice == 2);
-    
-    // Diğer ayarlar
-    std::cout << "\nEk Özellikler:\n";
-    
-    std::cout << "Otomatik Kontrast [E/H]: ";
-    char yn;
-    std::cin >> yn;
-    settings.autoContrast = (yn == 'E' || yn == 'e');
-    
-    std::cout << "Stabilizasyon [E/H]: ";
-    std::cin >> yn;
-    settings.stabilization = (yn == 'E' || yn == 'e');
-    
-    std::cout << "Grid Göster [E/H]: ";
-    std::cin >> yn;
-    settings.showGrid = (yn == 'E' || yn == 'e');
-    
-    std::cout << "FPS Göster [E/H]: ";
-    std::cin >> yn;
-    settings.showFPS = (yn == 'E' || yn == 'e');
-    
     return settings;
 }
 
@@ -167,6 +137,14 @@ int main() {
             throw std::runtime_error("Başlatma hatası!");
         }
 
+        // Su seviyesi detektörünü başlat
+        WaterLevelDetector waterDetector;
+        waterDetector.setReferencePoints(
+            cv::Point(50, 100),    // Üst referans
+            cv::Point(50, 500)     // Alt referans
+        );
+        waterDetector.setThresholds(70.0f, 90.0f);
+
         // Capture referansını al
         cv::VideoCapture& capture = detector.getCapture();
         
@@ -182,10 +160,9 @@ int main() {
         recordConfig.isColor = true;
         
         cv::VideoWriter videoWriter;
-        
-        // Ana işlem döngüsü
         cv::Mat frame, prevFrame;
         
+        // Ana işlem döngüsü
         while (isRunning) {
             if (!isPaused) {
                 // Frame al
@@ -200,6 +177,10 @@ int main() {
                     }
                     throw std::runtime_error("Frame alınamadı!");
                 }
+
+                // Su seviyesi tespiti
+                auto waterLevel = waterDetector.detectWaterLevel(frame);
+                waterDetector.drawWaterLevel(frame, waterLevel);
                 
                 // Stabilizasyon
                 if (settings.stabilization) {
@@ -214,13 +195,34 @@ int main() {
                 // Nesne tespiti
                 auto detections = detector.detect(frame);
                 
-                // Grid çizimi
-                if (settings.showGrid) {
-                    VideoUtils::drawGrid(frame);
+                // Su üzerindeki nesneler için özel kontroller ve uyarılar
+                for (auto& det : detections) {
+                    // Nesnenin su seviyesine göre konumu
+                    if (det.center.y > waterLevel.measurePoint.y) {
+                        // Su altındaki nesne uyarısı
+                        std::string warningText = det.className + " su altında!";
+                        cv::putText(frame, warningText,
+                                  cv::Point(10, 60 + (det.trackId * 30)),
+                                  cv::FONT_HERSHEY_SIMPLEX, 0.8,
+                                  cv::Scalar(0, 0, 255), 2);
+                    }
+                    
+                    // Nesne takibi ve yörünge çizimi
+                    if (det.trajectory.size() > 1) {
+                        for (size_t i = 1; i < det.trajectory.size(); i++) {
+                            cv::line(frame, det.trajectory[i-1], det.trajectory[i],
+                                   cv::Scalar(0, 255, 0), 2);
+                        }
+                    }
                 }
                 
                 // Tespitleri çiz
                 detector.drawDetections(frame, detections);
+                
+                // Grid çizimi
+                if (settings.showGrid) {
+                    VideoUtils::drawGrid(frame);
+                }
                 
                 // FPS ve bilgi çizimi
                 if (settings.showFPS) {
@@ -304,6 +306,58 @@ int main() {
                                 } else {
                                     videoWriter.release();
                                     isRecording = false;
+                                }
+                                break;
+
+                            case 'w':  // Su seviyesi referans noktalarını ayarla
+                            case 'W':
+                                {
+                                    std::cout << "Su seviyesi referans noktalarını ayarla:\n";
+                                    std::cout << "Sol tıklama: Üst referans\n";
+                                    std::cout << "Sağ tıklama: Alt referans\n";
+                                    std::cout << "ESC: İptal\n";
+                                    
+                                    cv::Point topRef, bottomRef;
+                                    bool topSet = false, bottomSet = false;
+                                    
+                                    auto mouseCallback = [](int event, int x, int y, [[maybe_unused]] int flags, void* userdata) {
+                                        auto* points = static_cast<std::pair<cv::Point*, cv::Point*>*>(userdata);
+                                        if (event == cv::EVENT_LBUTTONDOWN) {
+                                            *points->first = cv::Point(x, y);
+                                        } else if (event == cv::EVENT_RBUTTONDOWN) {
+                                            *points->second = cv::Point(x, y);
+                                        }
+                                    };
+                                    
+                                    std::pair<cv::Point*, cv::Point*> points(&topRef, &bottomRef);
+                                    cv::setMouseCallback("Fasty AI Detection", mouseCallback, &points);
+                                    
+                                    while (!topSet || !bottomSet) {
+                                        cv::imshow("Fasty AI Detection", frame);
+                                        int k = cv::waitKey(1);
+                                        if (k == 27) break;  // ESC
+                                        
+                                        if (topRef.x != 0) topSet = true;
+                                        if (bottomRef.x != 0) bottomSet = true;
+                                    }
+                                    
+                                    if (topSet && bottomSet) {
+                                        waterDetector.setReferencePoints(topRef, bottomRef);
+                                    }
+                                    
+                                    cv::setMouseCallback("Fasty AI Detection", nullptr, nullptr);
+                                }
+                                break;
+
+                            case 't':  // Su seviyesi eşiklerini ayarla
+                            case 'T':
+                                {
+                                    float warning, critical;
+                                    std::cout << "Uyarı seviyesi (%): ";
+                                    std::cin >> warning;
+                                    std::cout << "Kritik seviye (%): ";
+                                    std::cin >> critical;
+                                    waterDetector.setThresholds(warning, critical);
                                 }
                                 break;
                         }

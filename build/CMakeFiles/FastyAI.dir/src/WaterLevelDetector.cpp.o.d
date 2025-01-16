@@ -1,6 +1,6 @@
-CMakeFiles/FastyAI.dir/src/main.cpp.o: \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/src/main.cpp \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/FastyDetector.hpp \
+CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.o: \
+  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/src/WaterLevelDetector.cpp \
+  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/WaterLevelDetector.hpp \
   /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/opencv.hpp \
   /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/opencv_modules.hpp \
   /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/core.hpp \
@@ -1099,51 +1099,4 @@ CMakeFiles/FastyAI.dir/src/main.cpp.o: \
   /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/stitching/detail/blenders.hpp \
   /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/video.hpp \
   /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/video/tracking.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/video/background_segm.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/predict_collector.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/facerec.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/facemark.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/facemark_train.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/facemarkLBF.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/facemarkAAM.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/face_alignment.hpp \
-  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/face/mace.hpp \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/Detection.hpp \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/TrackingSystem.hpp \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/NotificationSystem.hpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/curl.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/curlver.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/system.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/socket.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/constrained_ctypes.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/machine/_param.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/arm/_param.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/net/net_kev.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/_types/_sa_family_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/_types/_socklen_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/_types/_iovec_t.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/time.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/_types/_timeval64.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/sys/_select.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/easy.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/multi.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/urlapi.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/options.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/header.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/websockets.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/curl/mprintf.h \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/VideoUtils.hpp \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/MenuSystem.hpp \
-  /Users/furkansevinc/Desktop/Fasty\ AI\ Project/include/WaterLevelDetector.hpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/thread \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__thread/formatter.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__thread/jthread.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__stop_token/stop_source.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__stop_token/intrusive_shared_ptr.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__stop_token/stop_state.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__stop_token/atomic_unique_lock.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__stop_token/intrusive_list_view.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__stop_token/stop_token.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__thread/thread.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1/__thread/this_thread.h
+  /opt/homebrew/Cellar/opencv/4.11.0/include/opencv4/opencv2/video/background_segm.hpp

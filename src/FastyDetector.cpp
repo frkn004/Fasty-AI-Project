@@ -439,31 +439,61 @@ void FastyDetector::drawDetections(cv::Mat& frame,
     for (const auto& det : detections) {
         cv::Scalar color = colors[det.classId % colors.size()];
         
+        // Tespit kutusu
         cv::rectangle(frame, det.bbox, color, 2);
         
+        // Nesne bilgisi ve mesafe
         std::stringstream ss;
-        ss << det.className << " " 
+        ss << det.className << " (" 
            << std::fixed << std::setprecision(1) 
-           << det.confidence * 100 << "%";
+           << det.confidence * 100 << "%)";
         
+        // Mesafe bilgisi
+        ss << "\nMesafe: " 
+           << std::fixed << std::setprecision(1) 
+           << det.distance << "m";
+        
+        // Hız bilgisi
         if (det.isMoving) {
-            ss << " " << det.velocity << " m/s";
+            ss << "\nHiz: " 
+               << std::fixed << std::setprecision(1) 
+               << det.velocity << " m/s";
+        }
+        
+        // Bilgi kutusu
+        std::vector<std::string> lines;
+        std::string line;
+        std::istringstream text(ss.str());
+        while (std::getline(text, line)) {
+            lines.push_back(line);
         }
         
         int baseLine;
-        cv::Size labelSize = cv::getTextSize(
-            ss.str(), cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-            
+        int maxWidth = 0;
+        for (const auto& line : lines) {
+            cv::Size textSize = cv::getTextSize(
+                line, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+            maxWidth = std::max(maxWidth, textSize.width);
+        }
+        
+        // Arka plan kutusu
+        int totalHeight = (lines.size() * (baseLine + 25));
         cv::rectangle(frame, 
-                     cv::Point(det.bbox.x, det.bbox.y - labelSize.height - 10),
-                     cv::Point(det.bbox.x + labelSize.width, det.bbox.y),
+                     cv::Point(det.bbox.x, det.bbox.y - totalHeight - 10),
+                     cv::Point(det.bbox.x + maxWidth + 10, det.bbox.y),
                      color, cv::FILLED);
-                     
-        cv::putText(frame, ss.str(), 
-                   cv::Point(det.bbox.x, det.bbox.y - 5),
-                   cv::FONT_HERSHEY_SIMPLEX, 0.5, 
-                   cv::Scalar(255,255,255), 1);
-                   
+        
+        // Metin
+        int y = det.bbox.y - totalHeight + 20;
+        for (const auto& line : lines) {
+            cv::putText(frame, line, 
+                       cv::Point(det.bbox.x + 5, y),
+                       cv::FONT_HERSHEY_SIMPLEX, 0.5, 
+                       cv::Scalar(255,255,255), 1);
+            y += 25;
+        }
+        
+        // Hareket yönü oku
         if (det.isMoving) {
             cv::Point2f centerf(static_cast<float>(det.center.x), 
                               static_cast<float>(det.center.y));
@@ -474,6 +504,9 @@ void FastyDetector::drawDetections(cv::Mat& frame,
                                    static_cast<int>(endPoint.y)), 
                            color, 2);
         }
+        
+        // Merkez noktası
+        cv::circle(frame, det.center, 3, color, cv::FILLED);
     }
 }
 

@@ -273,6 +273,30 @@ src/VideoUtils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FastyAI.dir/build.make CMakeFiles/FastyAI.dir/src/VideoUtils.cpp.s
 .PHONY : src/VideoUtils.cpp.s
 
+src/WaterLevelDetector.o: src/WaterLevelDetector.cpp.o
+.PHONY : src/WaterLevelDetector.o
+
+# target to build an object file
+src/WaterLevelDetector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FastyAI.dir/build.make CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.o
+.PHONY : src/WaterLevelDetector.cpp.o
+
+src/WaterLevelDetector.i: src/WaterLevelDetector.cpp.i
+.PHONY : src/WaterLevelDetector.i
+
+# target to preprocess a source file
+src/WaterLevelDetector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FastyAI.dir/build.make CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.i
+.PHONY : src/WaterLevelDetector.cpp.i
+
+src/WaterLevelDetector.s: src/WaterLevelDetector.cpp.s
+.PHONY : src/WaterLevelDetector.s
+
+# target to generate assembly for a file
+src/WaterLevelDetector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/FastyAI.dir/build.make CMakeFiles/FastyAI.dir/src/WaterLevelDetector.cpp.s
+.PHONY : src/WaterLevelDetector.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -324,6 +348,9 @@ help:
 	@echo "... src/VideoUtils.o"
 	@echo "... src/VideoUtils.i"
 	@echo "... src/VideoUtils.s"
+	@echo "... src/WaterLevelDetector.o"
+	@echo "... src/WaterLevelDetector.i"
+	@echo "... src/WaterLevelDetector.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
