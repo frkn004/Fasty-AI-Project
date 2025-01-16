@@ -1,0 +1,21 @@
+detection:
+  confidence_threshold: 0.5
+  nms_threshold: 0.4
+  input_width: 416
+  input_height: 416
+  min_detection_height: 50.0
+  max_detection_height: 400.0
+
+features:
+  night_vision: false
+  face_recognition: false
+  auto_contrast: true
+  stabilization: false
+  show_grid: false
+  show_fps: true
+  show_notifications: true
+
+tracking:
+  max_track_age: 30
+  max_stationary_time: 300
+  max_allowed_velocity

@@ -1,0 +1,3 @@
+/Users/furkansevinc/Desktop/Fasty AI Project/build/CMakeFiles/FastyAI.dir
+/Users/furkansevinc/Desktop/Fasty AI Project/build/CMakeFiles/edit_cache.dir
+/Users/furkansevinc/Desktop/Fasty AI Project/build/CMakeFiles/rebuild_cache.dir
