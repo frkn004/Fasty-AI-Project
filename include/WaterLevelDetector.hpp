@@ -1,5 +1,6 @@
 #pragma once
 #include <opencv2/opencv.hpp>
+#include <chrono>
 
 class WaterLevelDetector {
 public:
@@ -12,17 +13,15 @@ public:
 
     WaterLevelDetector();
     
-    // Su seviyesini tespit et
+    // Mevcut metodlar
     WaterLevelInfo detectWaterLevel(const cv::Mat& frame);
-    
-    // Su seviyesini görselleştir
     void drawWaterLevel(cv::Mat& frame, const WaterLevelInfo& info);
-    
-    // Referans noktalarını ayarla
     void setReferencePoints(const cv::Point& top, const cv::Point& bottom);
-    
-    // Uyarı seviyelerini ayarla
     void setThresholds(float warning, float critical);
+    
+    // Yeni eklenen metodlar
+    void drawLiveWaterLevel(cv::Mat& frame);
+    void updateWaterAnimation();
 
 private:
     cv::Point topReference;     // Üst referans noktası
@@ -30,6 +29,12 @@ private:
     float warningThreshold;     // Uyarı eşiği (%)
     float criticalThreshold;    // Kritik eşik (%)
     
-    // Su seviyesini hesapla
+    // Animasyon için yeni değişkenler
+    
+    float waveAmplitude;
+    float waveFrequency;
+    std::vector<float> waveOffsets;
+    std::chrono::steady_clock::time_point lastUpdateTime;
+    
     float calculateWaterLevel(const cv::Mat& frame);
 };
